@@ -399,50 +399,77 @@ def clone_site(entry_url: str, output_root: Path) -> dict[str, object]:
 BASE_STYLE_TAG = (
     '<style data-recova-hide>'
     '[data-framer-name="Remove This Buy Promo"],'
+    '[data-framer-name="Design By"],'
+    '[data-framer-name="Designed  by"],'
+    '[data-framer-name="Designed by"],'
+    '[data-framer-name="Designed Company"],'
     '#__framer-badge-container,'
     '[id^="__framer-editorbar"]'
     '{display:none!important}'
     'img[src*="kq857rH86cqGviBRliG7ERQy3MU"],'
-    'img[src*="ffnslfTs7Y5SIcEE2EqFkMWCMXA"]'
+    'img[src*="ffnslfTs7Y5SIcEE2EqFkMWCMXA"],'
+    'img[src*="C7Zy7gR9F6aRLgmI8rdtenyW4"],'
+    'img[src*="61WHQWZqzjWYfo1MWf1nJyU6WU"]'
     '{display:none!important}'
+    '[data-framer-name="Company Name"]{position:relative!important;min-width:80px;min-height:32px}'
+    '[data-framer-name="Company Name"]::after{content:"slit";position:absolute!important;left:0;top:50%;transform:translateY(-50%);font:700 28px/1 -apple-system,BlinkMacSystemFont,"Pretendard","Segoe UI",sans-serif;color:#fff;letter-spacing:-0.02em;white-space:nowrap;pointer-events:none}'
+    '[data-framer-name="Logo & Details"] [data-framer-name="Company Logo"]{position:relative!important;min-width:48px;min-height:48px;background:rgba(255,255,255,0.08);border-radius:12px}'
+    '[data-framer-name="Pricing Section"] [data-framer-name="Button Selector"]{display:none!important}'
+    '[data-framer-name="Pricing Section"] [data-framer-name="Desktop Monthly"]{width:100%!important;max-width:960px!important;margin:0 auto!important}'
+    '[data-framer-name="Pricing Section"] [data-framer-name="Cards"]{width:100%!important;display:block!important}'
+    '[data-framer-name="Pricing Section"] [data-framer-name="Cards"]>[data-framer-name="Monthly Card"]+ [data-framer-name="Monthly Card"]{display:none!important}'
+    '[data-framer-name="Pricing Section"] [data-framer-name="Monthly Card"]{width:100%!important;max-width:none!important;margin:0 auto!important}'
+    '[data-framer-name="Pricing Section"] [data-framer-name="Top Content"]{min-height:340px!important}'
+    '[data-framer-name="Pricing Section"] [data-framer-name="Bottom Content"]{padding-top:28px!important;overflow:visible!important}'
+    '[data-framer-name="Pricing Section"] [data-framer-name="Features Menu"]{flex:1 1 0!important;justify-content:flex-start!important;align-items:flex-start!important;overflow:visible!important}'
+    '[data-framer-name="Pricing Section"] [data-framer-name^="Features Point"]{width:100%!important;overflow:visible!important}'
+    '[data-framer-name="Pricing Section"] [data-framer-name^="Features Point"] [data-framer-name="Default"]{width:100%!important;justify-content:flex-start!important}'
+    '[data-framer-name="Pricing Section"] [data-framer-name^="Features Point"] [data-framer-name="Title"]{flex:1 1 auto!important;min-width:0!important}'
     'a[data-framer-name="Logo"]{position:relative!important}'
-    'a[data-framer-name="Logo"]::after{content:"Recova";position:absolute!important;left:0;top:50%;transform:translateY(-50%);font:700 22px/1 -apple-system,BlinkMacSystemFont,"Pretendard","Segoe UI",sans-serif;color:#fff;letter-spacing:-0.02em;white-space:nowrap;pointer-events:none}'
+    'a[data-framer-name="Logo"]::after{content:"slit";position:absolute!important;left:0;top:50%;transform:translateY(-50%);font:700 22px/1 -apple-system,BlinkMacSystemFont,"Pretendard","Segoe UI",sans-serif;color:#fff;letter-spacing:-0.02em;white-space:nowrap;pointer-events:none}'
+    'html[lang="ko"] .framer-kAyMd .framer-1g5q2vj,'
+    'html[lang="ko"] .framer-kAyMd .framer-1we9bz9,'
+    'html[lang="ko"] .framer-kAyMd.framer-v-m3pu6j .framer-1jwm4ji'
+    '{word-break:keep-all!important;overflow-wrap:break-word!important}'
+    'html[lang="ko"] .framer-kAyMd .framer-g57tu6'
+    '{width:100%!important;max-width:760px!important;margin:0 auto!important}'
     '</style>'
 )
-
-HOME_HIDE_STYLE_TAG = (
-    '<style data-recova-hide-home>'
-    '[data-framer-name="Testimonials Section"],'
-    '[data-framer-name="Blog Section"],'
-    '[data-framer-name="Pricing Section"]>div:nth-child(2),'
-    '[data-framer-name="Ticker"],'
-    '[data-framer-name="Hero Section"] form label,'
-    '[data-framer-name="FAQ 6"],'
-    '[data-framer-name="Brading Cards"]'
-    '{display:none!important}'
-    '[data-framer-name="Ticker Section"]{padding:96px 24px 96px!important}'
-    '[data-framer-name="Pricing Section"]{padding-bottom:64px!important}'
-    '[data-framer-name="Hero Section"] form{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;width:100%!important;gap:0!important}'
-    '[data-framer-name="Hero Section"] form>*{flex:0 0 auto!important;margin-left:auto!important;margin-right:auto!important}'
-    '[data-framer-name="Hero Section"] form>div{position:static!important;top:auto!important;right:auto!important;bottom:auto!important;left:auto!important;transform:none!important;margin:0 auto!important;align-self:center!important;width:auto!important}'
-    '[data-framer-name="Hero Section"] form button[type="submit"]{margin-left:auto!important;margin-right:auto!important}'
-    'p,h1,h2,h3,h4,h5,h6,[data-framer-component-type="RichTextContainer"] *{word-break:keep-all!important;line-break:strict!important}'
-    '[data-framer-name="Hero Section"] form .framer-form-input-wrapper,[data-framer-name="Hero Section"] form .framer-form-text-input,[data-framer-name="Hero Section"] form label{display:none!important}'
-    '[data-framer-name="Features Section"] p[data-framer-component-type="RichTextContainer"]:not([data-framer-name="Title"]) .framer-text,[data-framer-name="Pricing Section"] p[data-framer-component-type="RichTextContainer"]:not([data-framer-name="Title"]) .framer-text,[data-framer-name="Benifits Section"] p[data-framer-component-type="RichTextContainer"]:not([data-framer-name="Title"]) .framer-text,[data-framer-name="Integration Section"] p[data-framer-component-type="RichTextContainer"]:not([data-framer-name="Title"]) .framer-text,[data-framer-name="FAQ Section"] p[data-framer-component-type="RichTextContainer"]:not([data-framer-name="Title"]) .framer-text,[data-framer-name="CTA Section"] p[data-framer-component-type="RichTextContainer"]:not([data-framer-name="Title"]) .framer-text{font-size:20px!important;line-height:1.55!important}'
-    '</style>'
-)
-
 HIDE_STYLE_BLOCK_RE = re.compile(r'<style data-recova-hide(?:-(?:home|promo))?\b[^>]*>[^<]*</style>')
 HIDE_STYLE_INSERT_AFTER = "<head>"
 
 I18N_SCRIPT_TAG = '<script src="/assets/i18n.js" defer data-recova-i18n></script>'
+I18N_BOOTSTRAP_TAG = (
+    '<script data-recova-i18n-bootstrap>'
+    '(function(){'
+    'try{'
+    'var key="recova_lang";'
+    'var lang=localStorage.getItem(key);'
+    'if(lang!=="ko"&&lang!=="en"){lang=((navigator.language||"en").toLowerCase().indexOf("ko")===0)?"ko":"en";}'
+    'document.documentElement.lang=lang;'
+    'document.documentElement.setAttribute("data-recova-preferred-lang",lang);'
+    'if(lang==="ko"){document.documentElement.setAttribute("data-recova-i18n-pending","1");}'
+    'window.__recovaClearI18nPending=function(){document.documentElement.removeAttribute("data-recova-i18n-pending");};'
+    'window.__recovaI18nPendingTimeout=window.setTimeout(window.__recovaClearI18nPending,3000);'
+    '}catch(e){}'
+    '})();'
+    '</script>'
+    '<style data-recova-i18n-guard>'
+    'html[data-recova-i18n-pending="1"] body{visibility:hidden!important}'
+    '</style>'
+)
 I18N_SCRIPT_BLOCK_RE = re.compile(r'<script [^>]*data-recova-i18n[^>]*></script>')
+I18N_BOOTSTRAP_BLOCK_RE = re.compile(
+    r'<script data-recova-i18n-bootstrap>.*?</script>|<style data-recova-i18n-guard>.*?</style>',
+    re.DOTALL,
+)
 I18N_SCRIPT_INSERT_BEFORE = "</head>"
 
 BRAND_REPLACEMENTS: tuple[tuple[str, str], ...] = (
-    ("FlowSuite", "Recova"),
-    ("Flowsuite", "Recova"),
-    ("flowsuite", "recova"),
+    ("FlowSuite", "slit"),
+    ("Flowsuite", "slit"),
+    ("flowsuite", "slit"),
+    ("Recova", "slit"),
 )
 
 
@@ -461,19 +488,17 @@ def inject_hide_style(html_text: str, rel_path: Path) -> tuple[str, bool]:
     if pos == -1:
         return html_text, False
     insert_at = pos + len(HIDE_STYLE_INSERT_AFTER)
-    style_block = BASE_STYLE_TAG
-    if rel_path.as_posix() == "index.html":
-        style_block += HOME_HIDE_STYLE_TAG
-    updated = cleaned[:insert_at] + style_block + cleaned[insert_at:]
+    updated = cleaned[:insert_at] + BASE_STYLE_TAG + cleaned[insert_at:]
     return updated, updated != html_text
 
 
 def inject_i18n_script(html_text: str) -> tuple[str, bool]:
-    cleaned = I18N_SCRIPT_BLOCK_RE.sub("", html_text)
+    cleaned = I18N_BOOTSTRAP_BLOCK_RE.sub("", html_text)
+    cleaned = I18N_SCRIPT_BLOCK_RE.sub("", cleaned)
     pos = cleaned.find(I18N_SCRIPT_INSERT_BEFORE)
     if pos == -1:
         return html_text, False
-    updated = cleaned[:pos] + I18N_SCRIPT_TAG + cleaned[pos:]
+    updated = cleaned[:pos] + I18N_BOOTSTRAP_TAG + I18N_SCRIPT_TAG + cleaned[pos:]
     return updated, updated != html_text
 
 

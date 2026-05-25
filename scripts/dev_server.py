@@ -15,6 +15,10 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
         super().end_headers()
 
 
+class ReusableTCPServer(socketserver.TCPServer):
+    allow_reuse_address = True
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Serve the mirrored site with cache disabled.")
     parser.add_argument("port", nargs="?", type=int, default=4173, help="Port to listen on")
@@ -31,7 +35,7 @@ def main() -> int:
     directory = Path(args.directory).resolve()
     handler = lambda *a, **kw: NoCacheHandler(*a, directory=str(directory), **kw)
 
-    with socketserver.TCPServer(("", args.port), handler) as httpd:
+    with ReusableTCPServer(("", args.port), handler) as httpd:
         print(f"Serving {directory} on http://localhost:{args.port} (cache disabled)")
         httpd.serve_forever()
 
