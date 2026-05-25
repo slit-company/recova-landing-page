@@ -463,10 +463,9 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
   };
 
   const BRAND_REWRITES = [
-    ["Flowsuite", "slit"],
-    ["FlowSuite", "slit"],
-    ["Recova", "slit"],
-  ];
+    ["Flowsuite", "Recova"],
+    ["FlowSuite", "Recova"],
+      ];
 
   function applyBrandRewrites(text) {
     if (!text) return text;

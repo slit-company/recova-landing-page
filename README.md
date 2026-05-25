@@ -1,6 +1,6 @@
-# slit Landing Page — Static
+# Recova Landing — Static
 
-slit 랜딩페이지 정적 빌드 (한/영 토글, FlowSuite 템플릿 기반 Framer hydration 호환).
+Recova 랜딩페이지 정적 빌드 (한/영 토글, FlowSuite 템플릿 기반 Framer hydration 호환).
 
 ## 빠른 실행
 
@@ -15,7 +15,7 @@ python3 scripts/dev_server.py
 ## 구조
 
 ```
-slit-landing-page/
+recova-landing-page/
 ├── index.html                  메인 홈페이지
 ├── about/index.html
 ├── pricing/index.html
@@ -30,8 +30,8 @@ slit-landing-page/
 │
 ├── assets/
 │   ├── i18n.js                 런타임 번역기 + 토글 UI + MutationObserver
-│   ├── translations.ko.json    한국어 slit 카피 (~1000 엔트리)
-│   └── translations.en.json    영문 slit 카피 (~60 엔트리)
+│   ├── translations.ko.json    한국어 Recova 카피 (~1000 엔트리)
+│   └── translations.en.json    영문 Recova 카피 (~60 엔트리)
 │
 └── scripts/
     ├── dev_server.py           로컬 dev 서버 (캐시 비활성)
@@ -45,7 +45,7 @@ slit-landing-page/
 - 한국어 카피: `assets/translations.ko.json`
 - 영문 카피: `assets/translations.en.json`
 
-키 = 원본 Framer 템플릿 영문 텍스트. 값 = slit 카피.
+키 = 원본 Framer 템플릿 영문 텍스트. 값 = Recova 카피.
 
 수정 후 저장만 하면 페이지 새로고침 시 즉시 반영 (dev 서버는 캐시 무효화 헤더 사용).
 
@@ -68,9 +68,9 @@ print(apply_recova_patches(Path('.')))
 
 ## 알려진 한계
 
-- **헤더 로고**: PNG 이미지 hide 후 CSS `::after`로 "slit" 텍스트 인서트. 실제 SVG/PNG 로고가 있으면 `assets/`에 두고 i18n.js를 패치해서 교체 권장.
-- **대시보드 목업 이미지**: PNG로 박힌 영문 UI는 텍스트 치환 불가. 별도 slit 대시보드 mock 필요.
-- **헤더 nav 링크**: "요금제"/"블로그" 라벨은 한국어로 보이지만 클릭하면 원본 pricing/blogs 페이지로 이동. 그 페이지들도 slit 카피로 채워졌으면 자연스럽지만, 카피 누락 부분은 여전히 원본 영문/Recova 한국어 혼재.
+- **헤더 로고**: PNG 이미지 hide 후 CSS `::after`로 "Recova" 텍스트 인서트. 실제 SVG/PNG 로고가 있으면 `assets/`에 두고 i18n.js를 패치해서 교체 권장.
+- **대시보드 목업 이미지**: PNG로 박힌 영문 UI는 텍스트 치환 불가. 별도 Recova 대시보드 mock 필요.
+- **헤더 nav 링크**: "요금제"/"블로그" 라벨은 한국어로 보이지만 클릭하면 원본 pricing/blogs 페이지로 이동. 그 페이지들도 Recova 카피로 채워졌으면 자연스럽지만, 카피 누락 부분은 여전히 원본 영문/Recova 한국어 혼재.
 - **EN 토글 런타임 전환**: 페이지 로드 직후엔 잘 동작. 한번 토글 후 다시 토글하면 Framer hydration race로 일부 텍스트가 안 바뀔 수 있음. 새로고침하면 정상.
 
 ## 배포

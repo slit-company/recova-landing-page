@@ -412,7 +412,7 @@ BASE_STYLE_TAG = (
     'img[src*="61WHQWZqzjWYfo1MWf1nJyU6WU"]'
     '{display:none!important}'
     '[data-framer-name="Company Name"]{position:relative!important;min-width:80px;min-height:32px}'
-    '[data-framer-name="Company Name"]::after{content:"slit";position:absolute!important;left:0;top:50%;transform:translateY(-50%);font:700 28px/1 -apple-system,BlinkMacSystemFont,"Pretendard","Segoe UI",sans-serif;color:#fff;letter-spacing:-0.02em;white-space:nowrap;pointer-events:none}'
+    '[data-framer-name="Company Name"]::after{content:"Recova";position:absolute!important;left:0;top:50%;transform:translateY(-50%);font:700 28px/1 -apple-system,BlinkMacSystemFont,"Pretendard","Segoe UI",sans-serif;color:#fff;letter-spacing:-0.02em;white-space:nowrap;pointer-events:none}'
     '[data-framer-name="Logo & Details"] [data-framer-name="Company Logo"]{position:relative!important;min-width:48px;min-height:48px;background:rgba(255,255,255,0.08);border-radius:12px}'
     '[data-framer-name="Pricing Section"] [data-framer-name="Button Selector"]{display:none!important}'
     '[data-framer-name="Pricing Section"] [data-framer-name="Desktop Monthly"]{width:100%!important;max-width:960px!important;margin:0 auto!important}'
@@ -426,7 +426,7 @@ BASE_STYLE_TAG = (
     '[data-framer-name="Pricing Section"] [data-framer-name^="Features Point"] [data-framer-name="Default"]{width:100%!important;justify-content:flex-start!important}'
     '[data-framer-name="Pricing Section"] [data-framer-name^="Features Point"] [data-framer-name="Title"]{flex:1 1 auto!important;min-width:0!important}'
     'a[data-framer-name="Logo"]{position:relative!important}'
-    'a[data-framer-name="Logo"]::after{content:"slit";position:absolute!important;left:0;top:50%;transform:translateY(-50%);font:700 22px/1 -apple-system,BlinkMacSystemFont,"Pretendard","Segoe UI",sans-serif;color:#fff;letter-spacing:-0.02em;white-space:nowrap;pointer-events:none}'
+    'a[data-framer-name="Logo"]::after{content:"Recova";position:absolute!important;left:0;top:50%;transform:translateY(-50%);font:700 22px/1 -apple-system,BlinkMacSystemFont,"Pretendard","Segoe UI",sans-serif;color:#fff;letter-spacing:-0.02em;white-space:nowrap;pointer-events:none}'
     'html[lang="ko"] .framer-kAyMd .framer-1g5q2vj,'
     'html[lang="ko"] .framer-kAyMd .framer-1we9bz9,'
     'html[lang="ko"] .framer-kAyMd.framer-v-m3pu6j .framer-1jwm4ji'
@@ -466,11 +466,10 @@ I18N_BOOTSTRAP_BLOCK_RE = re.compile(
 I18N_SCRIPT_INSERT_BEFORE = "</head>"
 
 BRAND_REPLACEMENTS: tuple[tuple[str, str], ...] = (
-    ("FlowSuite", "slit"),
-    ("Flowsuite", "slit"),
-    ("flowsuite", "slit"),
-    ("Recova", "slit"),
-)
+    ("FlowSuite", "Recova"),
+    ("Flowsuite", "Recova"),
+    ("flowsuite", "recova"),
+    )
 
 
 def apply_brand_rename(text: str) -> tuple[str, int]:
