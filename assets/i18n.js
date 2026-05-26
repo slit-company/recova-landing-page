@@ -1203,6 +1203,19 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
     return null;
   }
 
+  function syncToggleTypography(btn, header) {
+    if (!btn || !header) return;
+    const sample = header.querySelector('[data-styles-preset], .framer-text, a, p, span');
+    if (!sample) return;
+    const cs = window.getComputedStyle(sample);
+    btn.style.fontFamily = KO_HOME_FONT_STACK;
+    btn.style.fontSize = window.matchMedia('(max-width: 809px)').matches ? '16px' : '19px';
+    btn.style.fontWeight = '700';
+    btn.style.letterSpacing = '-0.02em';
+    btn.style.lineHeight = '1.45';
+    btn.style.textTransform = 'none';
+  }
+
   function ensureToggle() {
     let btn = document.getElementById("__recova-lang-toggle");
     const header = findHeaderTarget();
@@ -1212,6 +1225,7 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
       btn.style.cssText = HEADER_STYLE;
       btn.dataset.placement = "header";
       if (header.lastElementChild !== btn) header.appendChild(btn);
+      syncToggleTypography(btn, header);
     } else if (!btn.isConnected) {
       btn.style.cssText = FLOAT_STYLE;
       btn.dataset.placement = "float";
