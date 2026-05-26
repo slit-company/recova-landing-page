@@ -226,11 +226,13 @@ html[lang="ko"] [data-framer-name="Navigation"] .framer-styles-preset-b6gn3k {
 }
 
 /* Nav hover-swap offset: must match KO line-height (1.45 × font-size) */
-html[lang="ko"] [data-framer-name="Navigation"] .framer-3q23c:not(.hover) .framer-47t6iw {
-  bottom: -28px !important;
+html[lang="ko"] [data-framer-name="Navigation"] .framer-3q23c .framer-47t6iw {
+  display: none !important;
 }
 html[lang="ko"] [data-framer-name="Navigation"] .framer-3q23c.hover .framer-p8ekez {
-  top: -28px !important;
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
 }
 
 /* Heading 2 */
@@ -545,7 +547,7 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
     for (const link of links) {
       const txt = (link.textContent || '').trim();
       if (/파일럿 상담|Talk to us about a pilot|pilot/i.test(txt)) continue;
-      const inAuxNav = !!link.closest('footer, [role="contentinfo"], nav');
+      const inAuxNav = !!link.closest('footer, [role="contentinfo"]');
       if (!inAuxNav) continue;
       if (link.dataset.recovaAuxLink === "1") continue;
       link.dataset.recovaAuxLink = "1";
