@@ -565,8 +565,9 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
       if (link.dataset.recovaAuxLink === "1") continue;
       link.dataset.recovaAuxLink = "1";
       link.style.opacity = "0.58";
-      if (txt && !/준비 중|Resources|Coming soon/i.test(txt)) {
-        link.textContent = state.lang === 'ko' ? `${txt} · 준비 중` : `${txt} · later`;
+      link.removeAttribute('title');
+      if (/준비 중|later/i.test(txt)) {
+        link.textContent = txt.replace(/\s*[·•-]?\s*(준비 중|later)$/i, '').trim();
       }
     }
   }
