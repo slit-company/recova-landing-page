@@ -1103,16 +1103,19 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
     active.textContent = isKo ? "한" : "EN";
     active.style.fontWeight = "700";
     active.style.opacity = "1";
+    active.style.color = "currentColor";
 
     const separator = document.createElement("span");
     separator.textContent = " / ";
-    separator.style.opacity = "0.38";
+    separator.style.opacity = "0.64";
     separator.style.fontWeight = "500";
+    separator.style.color = "currentColor";
 
     const inactive = document.createElement("span");
     inactive.textContent = isKo ? "EN" : "한";
     inactive.style.fontWeight = "500";
-    inactive.style.opacity = "0.56";
+    inactive.style.opacity = "0.72";
+    inactive.style.color = "currentColor";
 
     btn.append(active, separator, inactive);
     btn.setAttribute("aria-label", isKo ? "Switch to English" : "한국어로 전환");
@@ -1128,8 +1131,8 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
     "height:28px",
     "padding:0",
     "margin-left:12px",
-    "color:#111",
-    "font:600 14px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",
+    "color:#fff",
+    "font:600 15px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",
     "letter-spacing:-0.01em",
     "cursor:pointer",
     "transition:opacity 0.15s ease",
