@@ -18,6 +18,7 @@
   const TYPOGRAPHY_WEIGHT_BUMP = 0;
   const HOME_STYLE_ID = "__recova-home-ko-tune";
   const HOME_ROUTE_STYLE_ID = "__recova-home-route-fixes";
+  const PUBLIC_ROUTE_STYLE_ID = "__recova-public-route-fixes";
   const LEGACY_HOME_ROUTE_STYLE_SELECTOR = 'style[data-recova-hide-home]';
   const HERO_DASHBOARD_FIGURE_SELECTOR =
     '#herosection [data-framer-name="Dashboard"] [data-framer-name="Dashboard "] [data-framer-name="Image"]';
@@ -505,6 +506,124 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
     document.documentElement.removeAttribute("data-recova-i18n-pending");
   }
 
+
+
+  function getNormalizedPath() {
+    const path = (window.location.pathname || "/").replace(/\/+$/, "") || "/";
+    return path === "/index.html" ? "/" : path;
+  }
+
+  function syncPublicRouteStyle() {
+    const path = getNormalizedPath();
+    const rules = [];
+    if (path === "/about") {
+      rules.push('[data-framer-name="Image Section"]{display:none!important;}');
+      rules.push('[data-framer-name="Perform Section"]{display:none!important;}');
+      rules.push('[data-framer-name="Team Section"]{display:none!important;}');
+      rules.push('[data-framer-name="Testimonials Section"]{display:none!important;}');
+    }
+    if (path === "/features") {
+      rules.push('[data-framer-name="Ticker Section"]{display:none!important;}');
+      rules.push('[data-framer-name="Monitoring Section"]{display:none!important;}');
+      rules.push('[data-framer-name="Testimonials Section"]{display:none!important;}');
+    }
+    let style = document.getElementById(PUBLIC_ROUTE_STYLE_ID);
+    if (!rules.length) {
+      if (style) style.remove();
+      return;
+    }
+    if (!style) {
+      style = document.createElement("style");
+      style.id = PUBLIC_ROUTE_STYLE_ID;
+      document.head.appendChild(style);
+    }
+    style.textContent = rules.join("\n");
+  }
+
+  function annotateDeemphasizedLinks(root) {
+    const links = root.querySelectorAll('a[href^="/blogs"], a[href^="/integrations"], a[href^="/career"]');
+    for (const link of links) {
+      const txt = (link.textContent || '').trim();
+      if (/파일럿 상담|Talk to us about a pilot|pilot/i.test(txt)) continue;
+      const inAuxNav = !!link.closest('footer, [role="contentinfo"], nav');
+      if (!inAuxNav) continue;
+      if (link.dataset.recovaAuxLink === "1") continue;
+      link.dataset.recovaAuxLink = "1";
+      link.style.opacity = "0.58";
+      if (txt && !/준비 중|Resources|Coming soon/i.test(txt)) {
+        link.textContent = state.lang === 'ko' ? `${txt} · 준비 중` : `${txt} · later`;
+      }
+    }
+  }
+
+  function normalizePricingLanguage(root) {
+    if (!["/pricing", "/"].includes(getNormalizedPath())) return;
+    const swaps = new Map([
+      ["$", ""],
+      ["39", state.lang === "ko" ? "도입 범위 협의" : "Scope based"],
+      ["29", state.lang === "ko" ? "도입 범위 협의" : "Scope based"],
+      ["/월", ""],
+      ["/month", ""],
+      ["5GB", state.lang === "ko" ? "파일럿 범위 기준" : "Pilot scope"],
+      ["100GB", state.lang === "ko" ? "운영 범위 기준" : "Ops scope"],
+      ["5", state.lang === "ko" ? "최대 5석" : "Up to 5 seats"],
+      ["25", state.lang === "ko" ? "최대 25석" : "Up to 25 seats"],
+      ["예", "포함"],
+      ["아니요", "선택"],
+      ["Yes", "Included"],
+      ["No", "Optional"],
+    ]);
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+    for (const node of textNodes) {
+      const raw = node.nodeValue;
+      const trimmed = raw && raw.trim();
+      if (!trimmed || !swaps.has(trimmed)) continue;
+      node.nodeValue = raw.replace(trimmed, swaps.get(trimmed));
+    }
+  }
+
+
+
+  function normalizePilotCtas(root) {
+    const links = root.querySelectorAll('a[href^="/integrations"], a[href^="/pricing"], a[href^="/contact"]');
+    for (const link of links) {
+      const txt = (link.textContent || '').trim();
+      if (!/파일럿 상담|Talk to us about a pilot|pilot/i.test(txt)) continue;
+      link.setAttribute('href', '/contact/');
+      link.dataset.recovaAuxLink = '0';
+      link.style.opacity = '';
+      if (/준비 중|later/i.test(txt)) {
+        link.textContent = state.lang === 'ko' ? '파일럿 상담하기' : 'Talk to us about a pilot';
+      }
+    }
+  }
+
+
+
+  function normalizeRouteTitle() {
+    const path = getNormalizedPath();
+    const titles = {
+      '/': 'Recova | AI overdue-call automation for rental and subscription teams',
+      '/about': 'About Recova | Operating principles for AI overdue calls',
+      '/features': 'Recova Features | AI overdue-call operations',
+      '/pricing': 'Recova Rollout | Pilot to operations',
+      '/contact': 'Contact Recova | Pilot inquiry',
+      '/privacy-policy': 'Recova Privacy Policy | SLIT',
+      '/terms-and-conditions': 'Recova Terms | SLIT',
+    };
+    if (titles[path]) document.title = titles[path];
+  }
+
+  function normalizePublicRoutes(root) {
+    syncPublicRouteStyle();
+    annotateDeemphasizedLinks(root);
+    normalizePilotCtas(root);
+    normalizePricingLanguage(root);
+    normalizeRouteTitle();
+  }
+
   function isHomePage() {
     const path = (window.location.pathname || "/").replace(/\/+$/, "") || "/";
     return path === "/" || path === "/index.html";
@@ -909,8 +1028,14 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
   function translateDocumentTitle() {
     const t = document.querySelector("title");
     if (!t) return;
+    const live = t.textContent.trim();
+    if (live.includes("|")) {
+      originalText.set(t, live);
+      document.title = applyBrandRewrites(live);
+      return;
+    }
     if (!originalText.has(t)) {
-      const reverseEnglish = state.reverseMap && state.reverseMap[t.textContent.trim()];
+      const reverseEnglish = state.reverseMap && state.reverseMap[live];
       originalText.set(t, reverseEnglish || t.textContent);
     }
     const orig = originalText.get(t);
@@ -925,6 +1050,7 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
     stopObserver();
     try {
       syncHomeRouteStyle();
+      syncPublicRouteStyle();
       ensureHomeLandingStyle();
       document.documentElement.lang = state.lang;
       selectMapForLang();
@@ -934,6 +1060,7 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
       normalizeHeroCta(document.body);
       normalizeLogoNavigation(document.body);
       applyTypographyTuning(document.body);
+      normalizePublicRoutes(document.body);
       removeHomeSections();
       syncHeroDashboardPlaceholder();
     } finally {
