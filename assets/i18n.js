@@ -1096,8 +1096,27 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
   function updateToggleButton() {
     const btn = document.getElementById("__recova-lang-toggle");
     if (!btn) return;
-    btn.textContent = state.lang === "ko" ? "EN" : "한";
-    btn.setAttribute("aria-label", state.lang === "ko" ? "Switch to English" : "한국어로 전환");
+    const isKo = state.lang === "ko";
+    btn.replaceChildren();
+
+    const active = document.createElement("span");
+    active.textContent = isKo ? "한" : "EN";
+    active.style.fontWeight = "700";
+    active.style.opacity = "1";
+
+    const separator = document.createElement("span");
+    separator.textContent = " / ";
+    separator.style.opacity = "0.38";
+    separator.style.fontWeight = "500";
+
+    const inactive = document.createElement("span");
+    inactive.textContent = isKo ? "EN" : "한";
+    inactive.style.fontWeight = "500";
+    inactive.style.opacity = "0.56";
+
+    btn.append(active, separator, inactive);
+    btn.setAttribute("aria-label", isKo ? "Switch to English" : "한국어로 전환");
+    btn.setAttribute("title", isKo ? "Switch to English" : "한국어로 전환");
   }
 
   const HEADER_STYLE = [
@@ -1106,20 +1125,18 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
     "display:inline-flex",
     "align-items:center",
     "justify-content:center",
-    "min-width:42px",
-    "height:32px",
-    "padding:0 12px",
-    "margin-left:8px",
-    "background:rgba(0,0,0,0.06)",
+    "height:28px",
+    "padding:0",
+    "margin-left:12px",
     "color:#111",
-    "border:1px solid rgba(0,0,0,0.08)",
-    "border-radius:999px",
-    "font:600 13px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",
+    "font:600 14px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",
+    "letter-spacing:-0.01em",
     "cursor:pointer",
-    "transition:background-color 0.15s ease,transform 0.15s ease",
+    "transition:opacity 0.15s ease",
     "user-select:none",
     "-webkit-user-select:none",
     "flex-shrink:0",
+    "white-space:nowrap",
   ].join(";");
 
   const FLOAT_STYLE = [
@@ -1132,19 +1149,20 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
     "display:inline-flex",
     "align-items:center",
     "justify-content:center",
-    "min-width:48px",
-    "height:40px",
+    "height:36px",
     "padding:0 14px",
-    "background:#111",
+    "background:rgba(17,17,17,0.92)",
     "color:#fff",
     "border:none",
     "border-radius:999px",
     "font:600 14px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",
+    "letter-spacing:-0.01em",
     "cursor:pointer",
     "box-shadow:0 6px 20px rgba(0,0,0,0.18),0 2px 6px rgba(0,0,0,0.12)",
-    "transition:transform 0.15s ease",
+    "transition:transform 0.15s ease, opacity 0.15s ease",
     "user-select:none",
     "-webkit-user-select:none",
+    "white-space:nowrap",
   ].join(";");
 
   function makeToggleButton() {
@@ -1153,11 +1171,11 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
     btn.type = "button";
     btn.setAttribute("data-recova-toggle", "1");
     btn.addEventListener("mouseenter", () => {
-      if (btn.dataset.placement === "header") btn.style.backgroundColor = "rgba(0,0,0,0.12)";
+      if (btn.dataset.placement === "header") btn.style.opacity = "0.72";
       else btn.style.transform = "translateY(-1px)";
     });
     btn.addEventListener("mouseleave", () => {
-      if (btn.dataset.placement === "header") btn.style.backgroundColor = "rgba(0,0,0,0.06)";
+      if (btn.dataset.placement === "header") btn.style.opacity = "1";
       else btn.style.transform = "";
     });
     btn.addEventListener("click", (e) => {
