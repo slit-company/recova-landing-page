@@ -225,14 +225,27 @@ html[lang="ko"] [data-framer-name="Navigation"] .framer-styles-preset-b6gn3k {
   font-weight: 700 !important;
 }
 
-/* Nav hover-swap offset: must match KO line-height (1.45 × font-size) */
-html[lang="ko"] [data-framer-name="Navigation"] .framer-3q23c .framer-47t6iw {
-  display: none !important;
+/* Nav hover-swap: keep animation on non-mobile, disable duplicate layer on mobile */
+@media (min-width: 810px) {
+  html[lang="ko"] [data-framer-name="Navigation"] .framer-3q23c:not(.hover) .framer-47t6iw {
+    bottom: -28px !important;
+    display: block !important;
+  }
+  html[lang="ko"] [data-framer-name="Navigation"] .framer-3q23c.hover .framer-p8ekez {
+    top: -28px !important;
+    right: 0 !important;
+    position: absolute !important;
+  }
 }
-html[lang="ko"] [data-framer-name="Navigation"] .framer-3q23c.hover .framer-p8ekez {
-  position: relative !important;
-  top: auto !important;
-  right: auto !important;
+@media (max-width: 809px) {
+  html[lang="ko"] [data-framer-name="Navigation"] .framer-3q23c .framer-47t6iw {
+    display: none !important;
+  }
+  html[lang="ko"] [data-framer-name="Navigation"] .framer-3q23c.hover .framer-p8ekez {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+  }
 }
 
 /* Heading 2 */
