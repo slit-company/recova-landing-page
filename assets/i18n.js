@@ -532,6 +532,7 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
     const path = getNormalizedPath();
     const rules = [];
     if (path === "/about") {
+      rules.push('[data-framer-name="Ticker Section"]{display:none!important;}');
       rules.push('[data-framer-name="Image Section"]{display:none!important;}');
       rules.push('[data-framer-name="Perform Section"]{display:none!important;}');
       rules.push('[data-framer-name="Team Section"]{display:none!important;}');
@@ -621,11 +622,11 @@ html[lang="ko"] [data-framer-name="FAQ Section"] h3 br {
   function normalizeRouteTitle() {
     const path = getNormalizedPath();
     const titles = {
-      '/': 'Recova | AI overdue-call automation for rental and subscription teams',
-      '/about': 'About Recova | Operating principles for AI overdue calls',
-      '/features': 'Recova Features | AI overdue-call operations',
-      '/pricing': 'Recova Rollout | Pilot to operations',
-      '/contact': 'Contact Recova | Pilot inquiry',
+      '/': 'Recova | Overdue recovery call agent for rental and subscription teams',
+      '/about': 'About Recova | Recovery-call operating principles',
+      '/features': 'Recova Features | Payment reminder call workflow',
+      '/pricing': 'Recova Rollout | Controlled pilot to recovery operations',
+      '/contact': 'Contact Recova | Recovery-call pilot inquiry',
       '/privacy-policy': 'Recova Privacy Policy | SLIT',
       '/terms-and-conditions': 'Recova Terms | SLIT',
     };
